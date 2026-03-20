@@ -9,6 +9,10 @@ if [ ! -d "mighty-giant" ]; then
 fi
 cd mighty-giant
 
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
 # Install dependencies
 pip install torch transformers datasets wandb huggingface_hub
 
