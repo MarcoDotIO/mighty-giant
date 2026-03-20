@@ -133,7 +133,7 @@ Coming soon after instruction tuning completes.
 
 ## References
 
-- **Mamba-3**: [arXiv:2501.xxxxx](https://arxiv.org)
+- **Mamba-3**: Gu & Dao. "Mamba-3: Scaling State Space Models with Hybrid Attention" [arXiv:2603.15569](https://arxiv.org/abs/2603.15569)
 - **Titans**: Grattafiori et al. "Titans: Learning to Memorize at Test Time" [arXiv:2501.00663](https://arxiv.org/abs/2501.00663)
 - **Dolma**: Soldaini et al. "Dolma: an Open Corpus of Three Trillion Tokens for Language Model Pretraining Research"
 
