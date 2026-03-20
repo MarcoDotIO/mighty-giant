@@ -42,7 +42,7 @@ python train.py \
   --preset 4_5b \
   --dataset code_feedback \
   --dataset-path "" \
-  --checkpoint checkpoints/stage1_step5000.pt \
+  --resume checkpoints/stage1_step5000.pt \
   --lr 3e-5 \
   --lr-schedule cosine \
   --warmup-steps 100 \
