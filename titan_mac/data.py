@@ -516,8 +516,16 @@ def load_datasets(
         ds = load_dataset("m-a-p/Code-Feedback", split="train")
         # 90/10 train/val split
         split_idx = int(len(ds) * 0.9)
-        train_data = [{"query": ds[i]["query"], "answer": ds[i]["answer"]} for i in range(split_idx)]
-        val_data = [{"query": ds[i]["query"], "answer": ds[i]["answer"]} for i in range(split_idx, len(ds))]
+        # Check column names and adapt
+        first_item = ds[0]
+        if "query" in first_item:
+            train_data = [{"query": ds[i]["query"], "answer": ds[i]["answer"]} for i in range(split_idx)]
+            val_data = [{"query": ds[i]["query"], "answer": ds[i]["answer"]} for i in range(split_idx, len(ds))]
+        else:
+            # Fallback: use first two text columns
+            cols = [k for k, v in first_item.items() if isinstance(v, str)]
+            train_data = [{"query": ds[i][cols[0]], "answer": ds[i][cols[1]]} for i in range(split_idx)]
+            val_data = [{"query": ds[i][cols[0]], "answer": ds[i][cols[1]]} for i in range(split_idx, len(ds))]
         return CodeInstructionDataset(train_data, tokenizer, seq_len), CodeInstructionDataset(val_data, tokenizer, seq_len)
 
     # If max_sequences is set, the dataset is small enough to load eagerly (original behaviour).
