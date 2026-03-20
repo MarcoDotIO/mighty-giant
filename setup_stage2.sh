@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e
+
+echo "=== Mighty Giant Stage 2 Setup ==="
+
+# Clone repo
+if [ ! -d "mighty-giant" ]; then
+    git clone https://github.com/MarcoDotIO/mighty-giant.git
+fi
+cd mighty-giant
+
+# Install dependencies
+pip install torch transformers datasets wandb huggingface_hub
+
+# Download checkpoint from HuggingFace
+echo "Downloading checkpoint..."
+huggingface-cli download MarcoDotIO/mighty-giant-checkpoints stage1_step5000.pt --local-dir ./checkpoints
+
+# Set environment variables (edit these!)
+export WANDB_API_KEY="your_wandb_key_here"
+export HF_TOKEN="your_hf_token_here"
+
+# Start Stage 2 training
+echo "Starting Stage 2 instruction tuning..."
+python train.py \
+  --stage 2 \
+  --preset 4_5b \
+  --dataset code_feedback \
+  --dataset-path "" \
+  --checkpoint checkpoints/stage1_step5000.pt \
+  --lr 3e-5 \
+  --lr-schedule cosine \
+  --warmup-steps 100 \
+  --max-steps 2000 \
+  --batch-size 16 \
+  --seq-len 512 \
+  --eval-every 100 \
+  --checkpoint-dir checkpoints_stage2
+
+echo "✓ Stage 2 training started"
