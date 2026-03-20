@@ -18,7 +18,18 @@ pip install torch transformers datasets wandb huggingface_hub
 
 # Download checkpoint from HuggingFace
 echo "Downloading checkpoint..."
-huggingface-cli download MarcoDotIO/mighty-giant-checkpoints stage1_step5000.pt --local-dir ./checkpoints
+python -c "
+from huggingface_hub import hf_hub_download
+import os
+os.makedirs('checkpoints', exist_ok=True)
+hf_hub_download(
+    repo_id='MarcoDotIO/mighty-giant-checkpoints',
+    filename='stage1_step5000.pt',
+    local_dir='checkpoints',
+    local_dir_use_symlinks=False
+)
+print('✓ Checkpoint downloaded')
+"
 
 # Set environment variables (edit these!)
 export WANDB_API_KEY="your_wandb_key_here"
