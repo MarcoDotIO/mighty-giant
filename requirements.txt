@@ -1,0 +1,5 @@
+torch>=2.2.0
+transformers>=4.36.0
+pyarrow>=14.0.0
+wandb>=0.16.0
+runpod>=1.6.0
