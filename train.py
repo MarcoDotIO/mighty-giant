@@ -321,7 +321,7 @@ def train(args: argparse.Namespace) -> None:
         segment_len_override=args.segment_len,
     )
 
-    memory_enabled = args.stage >= 2
+    memory_enabled = args.stage >= 3
     model = MightyGiantLM(config, memory_enabled=memory_enabled)
 
     _print_banner(args.stage, args.preset, memory_enabled)
